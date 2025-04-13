@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Humanizador de texto académico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Humanizador de texto académico</h1>
+
+    <form method="post">
+        <label for="texto">Texto original:</label><br>
+        <textarea name="texto" id="texto" required>{{ texto_original }}</textarea><br>
+        <button type="submit">Reescribir</button>
+    </form>
+
+    {% if resultado %}
+    <div class="resultado">
+        <h2>Texto mejorado:</h2>
+        <p id="texto-mejorado">{{ resultado }}</p>
+        <button onclick="copiarTexto()">📋 Copiar texto</button>
+    </div>
+    {% endif %}
+
+    <script>
+        function copiarTexto() {
+            const texto = document.getElementById("texto-mejorado").innerText;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("✅ Texto copiado al portapapeles");
+            }).catch(err => {
+                alert("❌ Error al copiar el texto");
+                console.error(err);
+            });
+        }
+    </script>
+</body>
+</html>
+
